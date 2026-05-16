@@ -3,7 +3,6 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { Status, Priority } from "@prisma/client";
 
 export async function createTask(formData: FormData) {
   const session = await auth();
@@ -13,7 +12,7 @@ export async function createTask(formData: FormData) {
   const description = formData.get("description") as string;
   const projectId = formData.get("projectId") as string;
   const assigneeId = formData.get("assigneeId") as string;
-  const priority = (formData.get("priority") as Priority) || Priority.MEDIUM;
+  const priority = (formData.get("priority") as string) || "MEDIUM";
   const dueDate = formData.get("dueDate") ? new Date(formData.get("dueDate") as string) : null;
 
   if (!title || !projectId) return { error: "Title and Project are required" };
@@ -25,6 +24,7 @@ export async function createTask(formData: FormData) {
         description,
         projectId,
         assigneeId: assigneeId || null,
+        createdById: session.user.id,
         priority,
         dueDate,
       },
@@ -37,7 +37,7 @@ export async function createTask(formData: FormData) {
   }
 }
 
-export async function updateTaskStatus(taskId: string, status: Status) {
+export async function updateTaskStatus(taskId: string, status: string) {
   const session = await auth();
   if (!session?.user?.id) return { error: "Unauthorized" };
 

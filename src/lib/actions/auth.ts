@@ -2,13 +2,12 @@
 
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-import { Role } from "@prisma/client";
 
 export async function signUp(formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  const role = (formData.get("role") as Role) || Role.MEMBER;
+  const role = (formData.get("role") as string) || "MEMBER";
 
   if (!email || !password || !name) {
     return { error: "All fields are required" };
@@ -35,6 +34,7 @@ export async function signUp(formData: FormData) {
     });
     return { success: "User created successfully" };
   } catch (error) {
+    console.error("Signup error:", error);
     return { error: "Something went wrong" };
   }
 }
