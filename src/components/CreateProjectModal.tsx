@@ -9,14 +9,16 @@ export default function CreateProjectModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(formData: FormData) {
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setLoading(true);
+    const formData = new FormData(e.currentTarget);
     const res = await createProject(formData);
     setLoading(false);
     if (res.success) {
       setIsModalOpen(false);
     } else {
-      alert(res.error);
+      alert(res.error || "Failed to create project");
     }
   }
 
@@ -51,7 +53,7 @@ export default function CreateProjectModal() {
                 <p className="text-white/40">Start a new collaboration workspace.</p>
               </div>
 
-              <form action={handleSubmit} className="space-y-6">
+              <form onSubmit={onSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <label className="text-sm font-semibold text-white/60 uppercase tracking-widest">Project Name</label>
                   <input 

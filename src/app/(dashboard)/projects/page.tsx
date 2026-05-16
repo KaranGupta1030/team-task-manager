@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 
 export default function ProjectsPage() {
   return (
-    <div className="space-y-10 animate-fade-in">
+    <div className="space-y-10">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold tracking-tight text-white">Projects</h1>

@@ -18,6 +18,15 @@ export async function createTask(formData: FormData) {
   if (!title || !projectId) return { error: "Title and Project are required" };
 
   try {
+    // Verify user exists in current DB
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id }
+    });
+
+    if (!user) {
+      return { error: "Session expired or user not found. Please Sign Out and Sign In again." };
+    }
+
     const task = await prisma.task.create({
       data: {
         title,

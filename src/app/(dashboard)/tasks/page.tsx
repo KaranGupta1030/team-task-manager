@@ -21,7 +21,7 @@ export default async function MyTasksPage() {
   ]);
 
   return (
-    <div className="space-y-10 animate-fade-in">
+    <div className="space-y-10">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-4xl font-bold tracking-tight text-white">My Tasks</h1>
