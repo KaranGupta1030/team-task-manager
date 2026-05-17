@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -14,12 +14,12 @@ model User {
   password      String?
   image         String?
   role          String          @default("MEMBER")
+  projects      ProjectMember[]
+  assignedTasks Task[]          @relation("AssignedTasks")
+  createdTasks  Task[]          @relation("CreatedTasks")
+  ownedProjects Project[]       @relation("OwnedProjects")
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  ownedProjects Project[]       @relation("OwnedProjects")
-  projects      ProjectMember[]
-  createdTasks  Task[]          @relation("CreatedTasks")
-  assignedTasks Task[]          @relation("AssignedTasks")
 }
 
 model Project {
@@ -27,20 +27,20 @@ model Project {
   name        String
   description String?
   ownerId     String
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
   owner       User            @relation("OwnedProjects", fields: [ownerId], references: [id])
   members     ProjectMember[]
   tasks       Task[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 }
 
 model ProjectMember {
-  id        String  @id @default(cuid())
-  role      String  @default("MEMBER")
+  id        String   @id @default(cuid())
+  role      String   @default("MEMBER")
   userId    String
   projectId String
-  project   Project @relation(fields: [projectId], references: [id])
-  user      User    @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  project   Project  @relation(fields: [projectId], references: [id])
 
   @@unique([userId, projectId])
 }
@@ -53,11 +53,11 @@ model Task {
   priority    String    @default("MEDIUM")
   dueDate     DateTime?
   projectId   String
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   assigneeId  String?
+  assignee    User?     @relation("AssignedTasks", fields: [assigneeId], references: [id])
   createdById String?
+  creator     User?     @relation("CreatedTasks", fields: [createdById], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  creator     User?     @relation("CreatedTasks", fields: [createdById], references: [id])
-  assignee    User?     @relation("AssignedTasks", fields: [assigneeId], references: [id])
-  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
 }

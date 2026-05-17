@@ -10,7 +10,11 @@ import {
   Calendar,
   MoreHorizontal
 } from "lucide-react";
+<<<<<<< HEAD
 import { Status, Priority } from "@prisma/client";
+=======
+// import { Status, Priority } from "@prisma/client";
+>>>>>>> 5827ca977c88515c1711e93e365eef6dec42c48a
 import { updateTaskStatus } from "@/lib/actions/tasks";
 
 export default async function ProjectDetailPage({ params }: { params: { id: string } }) {
@@ -31,9 +35,15 @@ export default async function ProjectDetailPage({ params }: { params: { id: stri
   if (!project) notFound();
 
   const columns = [
+<<<<<<< HEAD
     { label: "To Do", status: Status.TODO, icon: Circle, color: "text-white/40" },
     { label: "In Progress", status: Status.IN_PROGRESS, icon: Clock, color: "text-blue-400" },
     { label: "Done", status: Status.DONE, icon: CheckCircle2, color: "text-emerald-400" },
+=======
+    { label: "To Do", status: "TODO", icon: Circle, color: "text-white/40" },
+    { label: "In Progress", status: "IN_PROGRESS", icon: Clock, color: "text-blue-400" },
+    { label: "Done", status: "DONE", icon: CheckCircle2, color: "text-emerald-400" },
+>>>>>>> 5827ca977c88515c1711e93e365eef6dec42c48a
   ];
 
   return (

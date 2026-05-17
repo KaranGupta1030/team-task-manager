@@ -4,8 +4,12 @@ import { Bell, Search, User } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 export default function Navbar() {
+<<<<<<< HEAD
   const { data: session, status } = useSession();
   const isLoading = status === "loading";
+=======
+  const { data: session } = useSession();
+>>>>>>> 5827ca977c88515c1711e93e365eef6dec42c48a
 
   return (
     <header className="h-20 flex items-center justify-between px-8 glass-morphism border-b border-white/5 sticky top-0 z-40">
@@ -26,6 +30,7 @@ export default function Navbar() {
         
         <div className="flex items-center gap-3 pl-6 border-l border-white/10">
           <div className="text-right">
+<<<<<<< HEAD
             {isLoading ? (
               <div className="space-y-1">
                 <div className="h-4 w-24 bg-white/5 animate-pulse rounded" />
@@ -37,6 +42,10 @@ export default function Navbar() {
                 <p className="text-xs text-white/40 capitalize">{(session?.user as any)?.role || "Member"}</p>
               </>
             )}
+=======
+            <p className="text-sm font-semibold text-white">{session?.user?.name || "User"}</p>
+            <p className="text-xs text-white/40 capitalize">{(session?.user as any)?.role || "Member"}</p>
+>>>>>>> 5827ca977c88515c1711e93e365eef6dec42c48a
           </div>
           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center overflow-hidden">
             <User className="text-white/40 w-6 h-6" />

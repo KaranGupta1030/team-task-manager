@@ -14,7 +14,10 @@ import {
   Users
 } from "lucide-react";
 import Link from "next/link";
+<<<<<<< HEAD
 import CreateProjectModal from "@/components/CreateProjectModal";
+=======
+>>>>>>> 5827ca977c88515c1711e93e365eef6dec42c48a
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -66,7 +69,11 @@ export default async function DashboardPage() {
   ];
 
   return (
+<<<<<<< HEAD
     <div className="space-y-10">
+=======
+    <div className="space-y-10 animate-fade-in">
+>>>>>>> 5827ca977c88515c1711e93e365eef6dec42c48a
       {/* Header with Quick Actions */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-1">
@@ -114,12 +121,17 @@ export default async function DashboardPage() {
            </div>
            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {projects.length === 0 ? (
+<<<<<<< HEAD
                 <div className="col-span-full glass-card p-10 flex flex-col items-center justify-center text-center gap-6">
                   <div className="space-y-2">
                     <p className="text-white/20 text-lg font-medium">No active projects yet.</p>
                     <p className="text-sm text-white/10">Create your first workspace to start managing tasks.</p>
                   </div>
                   <CreateProjectModal />
+=======
+                <div className="col-span-full glass-card p-10 text-center text-white/20">
+                  No active projects. Start by creating one!
+>>>>>>> 5827ca977c88515c1711e93e365eef6dec42c48a
                 </div>
               ) : (
                 projects.map((p) => (
